@@ -1,126 +1,126 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
-import { FiMapPin, FiCalendar } from "react-icons/fi";
-import { FaBriefcase, FaGraduationCap, FaBook } from "react-icons/fa";
+import { FiCalendar, FiMapPin } from "react-icons/fi";
 
 export const ExperienceSection = () => {
+
   const ref = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start end", "end start"]
   });
 
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30
+  });
 
   const timeline = [
     {
       id: 1,
       type: "experience",
-      icon: FaBriefcase,
       title: "Assistant Professor",
       company: "Graphic Era University",
       location: "Dehradun, India",
       date: "2025 - Present",
       description:
-        "Teaching computer science subjects and mentoring students in programming and software development.",
+        "Teaching modern web technologies and mentoring students in React, UI engineering and software development."
     },
     {
       id: 2,
       type: "education",
-      icon: FaGraduationCap,
-      title: "Master's in Computer Science & Engineering",
+      title: "M.Tech Computer Science",
       company: "Graphic Era University",
       location: "Dehradun, India",
       date: "2025 - 2027",
       description:
-        "Focused on advanced computing, software engineering and modern development frameworks.",
+        "Advanced research in computer science and scalable software systems."
     },
     {
       id: 3,
       type: "education",
-      icon: FaGraduationCap,
-      title: "Master of Computer Applications (MCA)",
+      title: "Master of Computer Applications",
       company: "Graphic Era University",
       location: "Dehradun, India",
       date: "2023 - 2025",
       description:
-        "Specialized in full-stack development, MERN stack and software architecture.",
-    },
-    
-    
+        "Specialized in web development, algorithms and software engineering."
+    }
   ];
 
   return (
     <section
       id="experience"
       ref={ref}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900"
+      className="py-24 px-6 relative"
     >
-      <div className="max-w-5xl mx-auto">
+
+      <div className="max-w-6xl mx-auto">
 
         {/* Heading */}
+
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
             Experience & Education
           </h2>
 
-          <p className="text-gray-600 dark:text-gray-400">
-            My professional journey and academic background
+          <p className="mt-4 text-gray-600 dark:text-gray-400">
+            My academic and professional journey
           </p>
+
         </motion.div>
 
-        {/* Timeline */}
+        {/* Timeline wrapper */}
+
         <div className="relative">
 
-          {/* Line */}
-          <div className="absolute left-4 md:left-1/2 top-0 h-full w-1 bg-gray-300 dark:bg-gray-700 md:-translate-x-1/2"/>
+          {/* Timeline base line */}
 
-          {/* Scroll progress */}
+          <div className="absolute left-4 md:left-1/2 top-0 h-full w-[2px] bg-gray-200 dark:bg-gray-700 md:-translate-x-1/2" />
+
+          {/* Animated progress line */}
+
           <motion.div
             style={{ scaleY }}
-            className="absolute left-4 md:left-1/2 top-0 h-full w-1 bg-gradient-to-b from-blue-500 to-cyan-400 origin-top md:-translate-x-1/2"
+            className="absolute left-4 md:left-1/2 top-0 h-full w-[2px] bg-gradient-to-b from-blue-500 via-cyan-400 to-purple-500 origin-top md:-translate-x-1/2"
           />
 
-          <div className="space-y-12">
-            {timeline.map((item, index) => {
-              const Icon = item.icon;
+          <div className="space-y-20">
 
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="flex items-start gap-6 md:gap-10"
-                >
-                  {/* Dot */}
-                  <div className="relative flex items-center justify-center">
-                    <motion.div
-                      animate={{ scale: [1, 1.3, 1] }}
-                      transition={{ repeat: Infinity, duration: 2 }}
-                      className="absolute w-8 h-8 bg-blue-500 blur-xl rounded-full"
-                    />
+            {timeline.map((item, index) => (
 
-                    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-white shadow-lg">
-                      <Icon size={14}/>
-                    </div>
-                  </div>
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className={`relative flex flex-col md:flex-row items-start ${
+                  index % 2 === 0
+                    ? "md:flex-row"
+                    : "md:flex-row-reverse"
+                }`}
+              >
 
-                  {/* Card */}
+                {/* Card */}
+
+                <div className="md:w-1/2 pl-14 md:pl-0 md:px-10">
+
                   <motion.div
-                    whileHover={{ y: -6, scale: 1.02 }}
-                    className="flex-1 bg-white dark:bg-gray-800 rounded-xl p-5 shadow-md hover:shadow-xl transition"
+                    whileHover={{ y: -10, scale: 1.03 }}
+                    className="backdrop-blur-xl bg-white/60 dark:bg-gray-800/60 border border-white/20 dark:border-gray-700 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all"
                   >
-                    <div className="flex justify-between flex-wrap gap-2 mb-2">
 
-                      <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
+                    <div className="flex justify-between items-start">
+
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                         {item.title}
                       </h3>
 
@@ -130,33 +130,59 @@ export const ExperienceSection = () => {
 
                     </div>
 
-                    <p className="text-blue-600 dark:text-blue-400 font-semibold mb-2">
+                    <p className="text-blue-600 dark:text-blue-400 font-semibold mt-2">
                       {item.company}
                     </p>
 
-                    <div className="text-sm text-gray-600 dark:text-gray-400 flex flex-col gap-1 mb-3">
+                    <div className="mt-3 text-sm text-gray-600 dark:text-gray-400 space-y-1">
+
                       <div className="flex items-center gap-2">
-                        <FiCalendar/>
+                        <FiCalendar />
                         {item.date}
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <FiMapPin/>
+                        <FiMapPin />
                         {item.location}
                       </div>
+
                     </div>
 
-                    <p className="text-gray-600 dark:text-gray-300 text-sm md:text-base">
+                    <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                       {item.description}
                     </p>
 
                   </motion.div>
-                </motion.div>
-              );
-            })}
+
+                </div>
+
+                {/* Glowing Dot */}
+
+                <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2">
+
+                  <motion.div
+                    whileHover={{ scale: 1.4 }}
+                    className="relative flex items-center justify-center"
+                  >
+
+                    <span className="absolute w-6 h-6 bg-blue-500 rounded-full blur-md opacity-70 animate-pulse"></span>
+
+                    <span className="relative w-4 h-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full border-4 border-white dark:border-gray-900"></span>
+
+                  </motion.div>
+
+                </div>
+
+              </motion.div>
+
+            ))}
+
           </div>
+
         </div>
+
       </div>
+
     </section>
   );
 };
