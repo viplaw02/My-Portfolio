@@ -47,28 +47,8 @@ export const ExperienceSection = () => {
       description:
         "Specialized in full-stack development, MERN stack and software architecture.",
     },
-    {
-      id: 4,
-      type: "experience",
-      icon: FaBook,
-      title: "UPSC Aspirant",
-      company: "Self Study",
-      location: "Delhi, India",
-      date: "2019 - 2023",
-      description:
-        "Prepared for Civil Services Examination and developed strong analytical and research skills.",
-    },
-    {
-      id: 5,
-      type: "education",
-      icon: FaGraduationCap,
-      title: "B.Sc Computer Science",
-      company: "HNB Garhwal University",
-      location: "Uttarakhand, India",
-      date: "2016 - 2019",
-      description:
-        "Studied programming, operating systems, databases and core computer science subjects.",
-    },
+    
+    
   ];
 
   return (
